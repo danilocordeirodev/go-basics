@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	"github.com/danilocordeirodev/go-basics/config/database/mongodb"
 	"github.com/danilocordeirodev/go-basics/config/logger"
 	"github.com/danilocordeirodev/go-basics/controller"
 	"github.com/danilocordeirodev/go-basics/controller/routes"
@@ -19,7 +20,7 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-
+	mongodb.Init()
 	service := service.NewUserDomainService()
 	userController := controller.NewUserControllerInterface(service)
 
@@ -30,4 +31,5 @@ func main() {
 	if err := router.Run(":8080"); err != nil {
 		log.Fatal(err)
 	}
+
 }
