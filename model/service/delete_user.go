@@ -1,4 +1,4 @@
-package model
+package service
 
 import (
 
@@ -8,7 +8,7 @@ import (
 
 )
 
-func (*UserDomain) DeleteUser(string) *rest_err.RestErr {
+func (*userDomainService) DeleteUser(string) *rest_err.RestErr {
 
 	return nil
 }

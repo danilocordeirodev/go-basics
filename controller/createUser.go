@@ -8,6 +8,7 @@ import (
 	"github.com/danilocordeirodev/go-basics/controller/dto/request"
 	"github.com/danilocordeirodev/go-basics/controller/dto/response"
 	"github.com/danilocordeirodev/go-basics/model"
+	"github.com/danilocordeirodev/go-basics/model/service"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -42,7 +43,9 @@ func CreateUser(c *gin.Context) {
 		userRequest.Age,
 	)
 
-	if err := domain.CreateUser(); err != nil {
+	service := service.NewUserDomainService()
+
+	if err := service.CreateUser(domain); err != nil {
 		c.JSON(err.Code, err)
 		return
 	}
