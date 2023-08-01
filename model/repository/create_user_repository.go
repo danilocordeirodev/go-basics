@@ -7,6 +7,7 @@ import (
 	"github.com/danilocordeirodev/go-basics/config/logger"
 	"github.com/danilocordeirodev/go-basics/config/rest_err"
 	"github.com/danilocordeirodev/go-basics/model"
+	"github.com/danilocordeirodev/go-basics/model/repository/entity/converter"
 )
 
 const (
@@ -21,10 +22,7 @@ func (ur *userRepository) CreateUser(
 
 	collection := ur.databaseConnection.Collection(collection_name)
 
-	value, err := userDomain.GetJSONValue()
-	if err != nil {
-		return nil, rest_err.NewInternalServerError(err.Error())
-	}
+	value := converter.ConvertDomainToEntity(userDomain)
 
 	result, err := collection.InsertOne(context.Background(), value)
 
