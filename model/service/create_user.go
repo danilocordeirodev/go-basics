@@ -1,8 +1,6 @@
 package service
 
 import (
-	"fmt"
-
 	"github.com/danilocordeirodev/go-basics/config/logger"
 	"github.com/danilocordeirodev/go-basics/config/rest_err"
 	"github.com/danilocordeirodev/go-basics/model"
@@ -11,14 +9,18 @@ import (
 
 func (ud *userDomainService) CreateUser(
 	userDomain model.UserDomainInterface,
-) *rest_err.RestErr {
+) (model.UserDomainInterface, *rest_err.RestErr) {
 	logger.Info("Init createUser model",
 		zap.String("journey", "createUser"),
 	)
 
 	userDomain.EncryptPassword()
 
-	fmt.Println(userDomain.GetPassword())
+	userRepository, err :=ud.userRepository.CreateUser(userDomain)
+	if err != nil {
+		return nil, err
+	}
 
-	return nil
+
+	return userRepository, nil
 }
