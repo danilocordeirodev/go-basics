@@ -21,6 +21,5 @@ func (ud *userDomainService) CreateUser(
 		return nil, err
 	}
 
-
 	return userRepository, nil
 }
