@@ -14,6 +14,11 @@ func (ud *userDomainService) CreateUser(
 		zap.String("journey", "createUser"),
 	)
 
+	user, _ :=ud.FindUserByEmail(userDomain.GetEmail())
+	if user != nil {
+		return nil, rest_err.NewBadRequestError("E-mail already registered")
+	}
+
 	userDomain.EncryptPassword()
 
 	userDomainRepository, err :=ud.userRepository.CreateUser(userDomain)
