@@ -16,10 +16,10 @@ func (ud *userDomainService) CreateUser(
 
 	userDomain.EncryptPassword()
 
-	userRepository, err :=ud.userRepository.CreateUser(userDomain)
+	userDomainRepository, err :=ud.userRepository.CreateUser(userDomain)
 	if err != nil {
 		return nil, err
 	}
 
-	return userRepository, nil
+	return userDomainRepository, nil
 }
