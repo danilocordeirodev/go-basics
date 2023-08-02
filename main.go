@@ -6,7 +6,10 @@ import (
 
 	"github.com/danilocordeirodev/go-basics/config/database/mongodb"
 	"github.com/danilocordeirodev/go-basics/config/logger"
+	"github.com/danilocordeirodev/go-basics/controller"
 	"github.com/danilocordeirodev/go-basics/controller/routes"
+	"github.com/danilocordeirodev/go-basics/model/repository"
+	"github.com/danilocordeirodev/go-basics/model/service"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
@@ -26,7 +29,9 @@ func main() {
 		return
 	}
 
-	userController := initDependencies(database)
+	repo := repository.NewUserRepository(database)
+	service := service.NewUserDomainService(repo)
+	userController := controller.NewUserControllerInterface(service)
 
 	router := gin.Default()
 

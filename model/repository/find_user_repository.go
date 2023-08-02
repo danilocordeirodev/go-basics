@@ -11,6 +11,7 @@ import (
 	"github.com/danilocordeirodev/go-basics/model/repository/entity"
 	"github.com/danilocordeirodev/go-basics/model/repository/entity/converter"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.uber.org/zap"
 )
@@ -69,7 +70,9 @@ func (ur *userRepository) FindUserById(
 
 	userEntity := &entity.UserEntity{}
 
-	filter := bson.D{{Key: "id", Value: id}}
+	objectId, _ := primitive.ObjectIDFromHex(id)
+
+	filter := bson.D{{Key: "_id", Value: objectId}}
 
 	err := collection.FindOne(
 		context.Background(),
