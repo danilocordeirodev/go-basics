@@ -31,3 +31,12 @@ func NewUserUpdateDomain(
 		age: age,
 	}
 }
+
+func NewUserLoginDomain(
+	email, password string,
+) UserDomainInterface {
+	return &userDomain{
+		email: email, 
+		password: password,
+	}
+}
