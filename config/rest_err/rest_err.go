@@ -27,6 +27,14 @@ func NewRestError(message, err string, code int, causes []Cause) *RestErr {
 	}
 }
 
+func NewUnauthorizedRequestError(message string) *RestErr {
+	return &RestErr{
+		Message: message,
+		Err: "bad request",
+		Code: http.StatusUnauthorized,
+	}
+}
+
 func NewBadRequestError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
